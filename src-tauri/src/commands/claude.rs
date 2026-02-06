@@ -252,6 +252,7 @@ fn create_command_with_env(program: &str) -> Command {
             || key == "NVM_BIN"
             || key == "HOMEBREW_PREFIX"
             || key == "HOMEBREW_CELLAR"
+            || key.starts_with("AWS_")
         {
             log::debug!("Inheriting env var: {}={}", key, value);
             tokio_cmd.env(&key, &value);

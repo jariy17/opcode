@@ -20,11 +20,9 @@ import { cn } from "@/lib/utils";
 let tauriListen: any;
 type UnlistenFn = () => void;
 
-try {
-  if (typeof window !== 'undefined' && window.__TAURI__) {
-    tauriListen = require("@tauri-apps/api/event").listen;
-  }
-} catch (e) {
+if (typeof window !== 'undefined' && (window as any).__TAURI__?.event?.listen) {
+  tauriListen = (window as any).__TAURI__.event.listen;
+} else {
   console.log('[ClaudeCodeSession] Tauri APIs not available, using web mode');
 }
 
